@@ -1,0 +1,19 @@
+# Используем alpine с официальго сайта Docker Hub
+FROM alpine
+
+RUN apk upgrade 
+
+server { 
+    listen 80; 
+    server_name localhost; 
+    location / { 
+        try_files $uri $uri/ =404; 
+    # Запрет POST запросов
+    limit_except POST { 
+        deny all; 
+    } 
+} 
+
+EXPOSE 80 
+
+CMD ["nginx", "-g", "daemon off;"] 

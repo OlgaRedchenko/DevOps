@@ -1,0 +1,14 @@
+FROM postgres:14.5-alpine
+
+ENV POSTGRES_USER=test 
+ENV POSTGRES_PASSWORD=test 
+ENV POSTGRES_DB=test 
+
+# Создаем пользователя test
+RUN  psql -U postgres -c "CREATE USER $POSTGRES_USER WITH PASSWORD '$POSTGRES_PASSWORD';" 
+
+# Создаем базу данных test
+RUN  psql -U postgres -c "CREATE DATABASE $POSTGRES_DB;" 
+
+# Запускаем Postgres
+CMD ["postgres"] 
